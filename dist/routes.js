@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const api_controller_1 = require("./api.controller");
+const routes = express_1.Router();
+routes.get('/explore-meta-transaction', api_controller_1.get_smart_contracts_by_transaction);
+routes.get('/get-account-activity');
+routes.get('/monitor-smart-contract');
+routes.get('/monitor-account');
+exports.default = routes;
