@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && npm run lint",
+    "build": "tsc",
     "clean": "rimraf ./dist",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prestart": "npm run build",
+    "start": "nodemon --watch '*.ts' --exec 'ts-node' server.ts",
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
