@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build":     "webpack --config:webpack.config.js --mode=production",
+    "build:dev": "webpack --config:webpack.config.js --mode=development",
+    "watch":     "webpack --config:webpack.config.js --mode=development --watch",
     "clean": "rimraf ./dist",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "prestart": "npm run build",
+    "lint": "tslint -c tslint.json '**/*.ts'",
     "start": "nodemon --watch '*.ts' --exec 'ts-node' server.ts",
-    "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -25,10 +25,12 @@
   },
   "devDependencies": {
     "@types/node": "^11.13.4",
+    "awesome-typescript-loader": "^5.2.1",
     "rimraf": "^2.6.3",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.3",
-    "typescript-eslint-parser": "^22.0.0"
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0"
   }
 }
