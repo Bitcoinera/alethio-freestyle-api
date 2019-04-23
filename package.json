@@ -1,18 +1,15 @@
 {
-  "name": "backend",
+  "name": "alethio-freestyle-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "browser-sync": "browser-sync start --proxy 'http://localhost:3001/' --port 3002 --ui-port 3003 --reload-delay 500",
     "build": "webpack --config:webpack.config.js --mode=production",
     "build:dev": "webpack --config:webpack.config.js --mode=development",
     "watch": "webpack --config:webpack.config.js --mode=development --watch",
     "clean": "rimraf ./dist",
     "lint": "tslint -c tslint.json '**/*.ts'",
-    "prestart": "tsc && webpack --mode=development",
     "start": "nodemon --watch '*.ts' --exec 'ts-node' server.ts",
-    "start-with-gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -29,9 +26,6 @@
   "devDependencies": {
     "@types/node": "^11.13.4",
     "awesome-typescript-loader": "^5.2.1",
-    "browser-sync": "^2.26.3",
-    "gulp": "^4.0.0",
-    "gulp-nodemon": "^2.4.2",
     "rimraf": "^2.6.3",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
