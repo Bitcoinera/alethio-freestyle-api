@@ -1,3 +1,16 @@
 * {
     font-family: 'Raleway', 'sans serif';
 }
+
+span {
+    margin-left: 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+li:before {
+    content: '+ ';
+    line-height: 1.5;
+}

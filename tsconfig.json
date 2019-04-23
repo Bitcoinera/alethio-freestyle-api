@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-     "target": "es6",
+     "target": "esnext",
      "module": "commonjs",
      "outDir": "dist",
      "sourceMap": false,
@@ -10,13 +10,15 @@
        "es2017.object",
        "es2015",
        "es2017",
-       "dom"
+       "dom",
+       "es2018.promise"
      ]
   },
   "include": [
-     "**/*.ts" // "src/**/*.ts"
+     "*.ts"
   ],
   "exclude": [
-     "node_modules"
+     "node_modules",
+     "dist"
   ]
 }

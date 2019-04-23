@@ -8,6 +8,11 @@ module.exports = {
       rules: [
         { test: /\.ts$/, loader: 'awesome-typescript-loader' }
       ]
+    },
+    node: {
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty'
     }
   };
   

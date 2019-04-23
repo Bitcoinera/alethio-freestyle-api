@@ -10,7 +10,9 @@
     "watch": "webpack --config:webpack.config.js --mode=development --watch",
     "clean": "rimraf ./dist",
     "lint": "tslint -c tslint.json '**/*.ts'",
+    "prestart": "tsc && webpack --mode=development",
     "start": "nodemon --watch '*.ts' --exec 'ts-node' server.ts",
+    "start-with-gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

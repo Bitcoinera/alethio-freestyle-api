@@ -33,6 +33,7 @@ export async function get_contract_message_log_entries(req, res, next) {
 export async function get_account_transactions(req, res, next) {
     const account = req.headers.account;
     const base_url = process.env.BASE_URL;
+    
     request(`${base_url}/accounts/${account}/transactions`, (err, response, body) => {
         res
             .json({ statusCode: response.statusCode,
