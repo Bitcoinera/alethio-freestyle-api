@@ -2,14 +2,13 @@
   "name": "alethio-freestyle-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "webpack --config:webpack.config.js --mode=production",
     "build:dev": "webpack --config:webpack.config.js --mode=development",
     "watch": "webpack --config:webpack.config.js --mode=development --watch",
     "clean": "rimraf ./dist",
     "lint": "tslint -c tslint.json '**/*.ts'",
-    "start": "nodemon --watch '*.ts' --exec 'ts-node' server.ts",
+    "start": "webpack-dev-server --inline --hot --content-base app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,21 +16,17 @@
   "license": "ISC",
   "dependencies": {
     "@types/dotenv": "^6.1.1",
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
-    "express": "^4.16.4",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@types/node": "^11.13.4",
     "awesome-typescript-loader": "^5.2.1",
     "rimraf": "^2.6.3",
-    "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.3",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1",
     "webpack-stream": "^5.2.1"
   }
 }

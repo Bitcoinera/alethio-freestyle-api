@@ -6,7 +6,18 @@ module.exports = {
     },
     module: {
       rules: [
-        { test: /\.ts$/, loader: 'awesome-typescript-loader' }
+        { 
+          test: /\.ts$/, 
+          loader: 'awesome-typescript-loader' },
+        {
+          test: /\.css$/,
+          loader: 'style!css'
+        },
+        // {
+        //   test: /\.js$/,
+        //   loader: 'babel-loader',
+        //   exclude: /node_modules/
+        // },
       ]
     },
     node: {
