@@ -34,8 +34,10 @@ async function monitor_account(account) {
             response.balance = balance.toFixed(4); // round up balance to 4 decimal places
             request(`${base_url}/accounts/${account}/transactions`, (err, res, body) => {
                 body = JSON.parse(body);
-                response.numberTransactions = body.data.length;
-                console.log('Number of transactions', body.data.length);
+                response.numberTransactions = body.data.length.toString();
+                if (response.numberTransactions === '10') {
+                    response.numberTransactions = '10+  // this feature is a work in progress';
+                }
                 request(`${base_url}/accounts/${account}/contractMessages`, (err, res, body) => {
                     body = JSON.parse(body);
                     if (body.data.length === 0) {
@@ -43,7 +45,6 @@ async function monitor_account(account) {
                     }
                     else {
                         for (let i = 0; i < body.data.length; i++) {
-                            // console.log(`data number ${i}`, body.data[i]);
                             response.contractMessages[i] = {
                                 action: {
                                     type: body.data[i].type,
