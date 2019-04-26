@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-
 let url = `https://api.aleth.io/v1/accounts/`; 
-
 
 export async function monitor_account(account) {
     let response = {
@@ -35,7 +33,7 @@ export async function monitor_account(account) {
                 .then( body => {
                     response.numberTransactions = body.data.data.length.toString();
                     if ( response.numberTransactions === '10' ) {
-                        response.numberTransactions = '10+  // this feature is a work in progress'
+                        response.numberTransactions = '10+  (this feature is a work in progress)'
                     }
 
 
@@ -69,9 +67,3 @@ export async function monitor_account(account) {
         })
     })    
 }
-
-let promise = monitor_account('0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF');
-promise.then(
-    (result) => console.log('******result', result),
-    (error) => console.log(error)
-)
