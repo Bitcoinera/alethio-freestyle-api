@@ -37,7 +37,7 @@ async function monitor_account(account) {
                 axios_1.default.get(url + account + '/contractMessages')
                     .then(body => {
                     if (body.data.data.length === 0) {
-                        response.contractMessages = null;
+                        response.contractMessages = [];
                     }
                     else {
                         for (let i = 0; i < body.data.data.length; i++) {
@@ -77,5 +77,3 @@ async function monitor_account(account) {
     });
 }
 exports.monitor_account = monitor_account;
-const promise = monitor_account('0x4Cf890695E2188a124495EbC3b1Ec6341F21C9C');
-promise.then((result) => { console.log(result), console.log(result['contractMessages']); }, (error) => { console.error(error); });

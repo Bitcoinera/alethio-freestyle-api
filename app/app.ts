@@ -6,12 +6,13 @@ let responseUl = document.getElementById('response');
 let inputButton = document.getElementById('button');
 let toggleButton = document.getElementById('toggle-activities');
 // account no contract msgs 0x84b50E8A5F0A3d28C10253d8B373882374c0FF89
-// account with con contract msgs 0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF
+// account with con contract msgs 0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF & another one 0x829bd824b016326a401d083b33d092293333a830
 
 inputButton.addEventListener('click', async () => {
 
     await AccountController.monitor_account(input.value)
         .then( (values) => {
+            input.value = ''; // empty input text content
             // handling error
             if ( values['errorMessage'] !== '' ) {
                 let pError = document.createElement('p');
@@ -26,7 +27,7 @@ inputButton.addEventListener('click', async () => {
                 <h5>Activity Stats</h5>
                 <p>There are ${values['contractMessages'].length} contract messages or transactions in total</p>
                 `;
-    
+                
                 values['contractMessages'].forEach( (contractMessage, index) => {
                     domString = domString + `
                     <p>------> Activity Number ${index}</p>
