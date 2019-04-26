@@ -20,7 +20,8 @@ export async function monitor_account(account) {
         links: {
             next: '',
             prev: ''
-        }
+        },
+        errorMessage: ''
     }
 
     return new Promise( (resolve, reject) => {
@@ -61,8 +62,29 @@ export async function monitor_account(account) {
                             }
                         }
                         resolve(response);
-                    })
+                    },
+                    error => {
+                        console.error(error.response);
+                        response.errorMessage = error.response.data.errors[0].status + ' ' + error.response.data.errors[0].title; 
+                        resolve(response);
+                    }) 
+            },
+            error => {
+                console.error(error.response);
+                response.errorMessage = error.response.data.errors[0].status + ' ' + error.response.data.errors[0].title; 
+                resolve(response);
             }) 
+        },
+        error => {
+            console.error(error.response);
+            response.errorMessage = error.response.data.errors[0].status + ' ' + error.response.data.errors[0].title; 
+            resolve(response);
         })
     })    
 }
+
+const promise = monitor_account('0x4Cf890695E2188a124495EbC3b1Ec6341F21C9C');
+promise.then(
+    (result) => { console.log(result), console.log(result['contractMessages']) },
+    (error) => { console.error(error) }
+);
