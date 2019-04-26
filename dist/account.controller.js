@@ -57,8 +57,8 @@ async function monitor_account(account) {
                             prev: body.data.links.prev
                         };
                     }
+                    resolve(response);
                 });
-                resolve(response);
             });
         });
     });
