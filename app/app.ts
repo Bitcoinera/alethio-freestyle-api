@@ -1,5 +1,5 @@
 import * as AccountController from '../dist/account.controller.js';
-import * as ChartRenderer from '../dist/graphics.js';
+import * as ChartRenderer from '../dist/graphics.js'; 
 
 let input = (<HTMLInputElement>document.getElementById('account'));
 let divInput = document.getElementById('input');
@@ -13,7 +13,7 @@ let canvas = <HTMLCanvasElement>document.getElementById('txnChart')
 
 inputButton.addEventListener('click', async () => {
 
-    await AccountController.monitor_account(input.value)
+    AccountController.monitor_account(input.value)
         .then( (values) => {
             input.value = ''; // empty input text content
             // handling error

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let url = `https://api.aleth.io/v1/accounts/`; 
 
-export async function monitor_account(account) {
+export function monitor_account(account) {
     let response = {
         balance: '0',
         numberTransactions: '0',

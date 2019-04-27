@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 let url = `https://api.aleth.io/v1/accounts/`;
-async function monitor_account(account) {
+function monitor_account(account) {
     let response = {
         balance: '0',
         numberTransactions: '0',

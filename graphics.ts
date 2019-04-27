@@ -1,7 +1,6 @@
-import * as AccountController from './dist/account.controller.js';
 import * as Chart from 'chart.js';
 
-export async function renderChart(values, canvas) {
+export function renderChart(values, canvas) {
     return new Promise( (resolve, reject) => {
         let myChart = new Chart(canvas, {
             type: 'line',

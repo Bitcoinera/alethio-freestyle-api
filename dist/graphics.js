@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Chart = require("chart.js");
-async function renderChart(values, canvas) {
+function renderChart(values, canvas) {
     return new Promise((resolve, reject) => {
         let myChart = new Chart(canvas, {
             type: 'line',
