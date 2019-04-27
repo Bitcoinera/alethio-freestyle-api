@@ -7,15 +7,15 @@ export async function monitor_account(account) {
         balance: '0',
         numberTransactions: '0',
         contractMessages: [{
-            action: {
-                type: '',
-                blockRank: '',
-                contractCreated: '',
-                inBlock: '',
-                logEntries: '',
-                toAddress: '',
-                txHash: ''
-            }
+            type: '',
+            value: '0',
+            blockRank: '',
+            contractCreated: '',
+            inBlock: '',
+            logEntries: '',
+            toAddress: '',
+            txHash: ''
+            
         }],
         links: {
             next: '',
@@ -37,6 +37,10 @@ export async function monitor_account(account) {
                         response.numberTransactions = '10+  (this feature is a work in progress)'
                     }
 
+                    let values = [];
+                    for ( let i = 0; i < body.data.data.length; i++ ) {
+                       values[i] = body.data.data[i].attributes.value;
+                    }
 
                 axios.get( url + account + '/contractMessages')
                     .then( body => {
@@ -45,15 +49,14 @@ export async function monitor_account(account) {
                         } else {
                             for ( let i = 0; i < body.data.data.length; i++ ) {
                                 response.contractMessages[i] = {
-                                    action: {
-                                        type: body.data.data[i].type,
-                                        blockRank: body.data.data[i].attributes.globalRank[1],
-                                        contractCreated: body.data.data[i].relationships.from.data.id,
-                                        inBlock: body.data.data[i].relationships.includedInBlock.data.id,
-                                        logEntries: '',
-                                        toAddress: body.data.data[i].relationships.to.data.id,
-                                        txHash: body.data.data[i].relationships.transaction.data.id
-                                    }
+                                    type: body.data.data[i].type,
+                                    value: values[i],
+                                    blockRank: body.data.data[i].attributes.globalRank[1],
+                                    contractCreated: body.data.data[i].relationships.from.data.id,
+                                    inBlock: body.data.data[i].relationships.includedInBlock.data.id,
+                                    logEntries: '',
+                                    toAddress: body.data.data[i].relationships.to.data.id,
+                                    txHash: body.data.data[i].relationships.transaction.data.id
                                 };
                             }
                             response.links = {

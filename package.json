@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/dotenv": "^6.1.1",
     "axios": "^0.18.0",
+    "chart.js": "^2.7.2",
     "dotenv": "^7.0.0",
     "request": "^2.88.0"
   },

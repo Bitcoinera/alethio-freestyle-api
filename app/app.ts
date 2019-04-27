@@ -1,10 +1,13 @@
 import * as AccountController from '../dist/account.controller.js';
+import * as ChartRenderer from '../dist/graphics.js';
 
 let input = (<HTMLInputElement>document.getElementById('account'));
 let divInput = document.getElementById('input');
 let responseUl = document.getElementById('response');
 let inputButton = document.getElementById('button');
 let toggleButton = document.getElementById('toggle-activities');
+let canvas = <HTMLCanvasElement>document.getElementById('txnChart')
+
 // account no contract msgs 0x84b50E8A5F0A3d28C10253d8B373882374c0FF89
 // account with con contract msgs 0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF & another one 0x829bd824b016326a401d083b33d092293333a830
 
@@ -31,17 +34,22 @@ inputButton.addEventListener('click', async () => {
                 values['contractMessages'].forEach( (contractMessage, index) => {
                     domString = domString + `
                     <p>------> Activity Number ${index}</p>
-                    <li class="activity">Type of action: ${contractMessage.action.type}</li>
-                    <li class="activity">Block rank: ${contractMessage.action.blockRank}</li>
-                    <li class="activity">Hash of the created contract: ${contractMessage.action.contractCreated}</li>
-                    <li class="activity">Recipient address: ${contractMessage.action.toAddress}</li>
-                    <li class="activity">Transaction hash: ${contractMessage.action.txHash}</li>
-                    <li class="activity">Hash of the block where contract was created: ${contractMessage.action.inBlock}</li>
-                    <li class="activity">Log entries: ${contractMessage.action.logEntries}</li>
+                    <li class="activity">Type of action: ${contractMessage.type}</li>
+                    <li class="activity">ETH Value: ${contractMessage.value}</li>
+                    <li class="activity">Block rank: ${contractMessage.blockRank}</li>
+                    <li class="activity">Hash of the created contract: ${contractMessage.contractCreated}</li>
+                    <li class="activity">Recipient address: ${contractMessage.toAddress}</li>
+                    <li class="activity">Transaction hash: ${contractMessage.txHash}</li>
+                    <li class="activity">Hash of the block where contract was created: ${contractMessage.inBlock}</li>
+                    <li class="activity">Log entries: ${contractMessage.logEntries}</li>
                     `;
                 })
                 responseUl.innerHTML = domString;
-            }            
+            }
+            
+            // call chart function
+            ChartRenderer.renderChart(values, canvas)
+            
         })
         .catch( (err) => {
             console.error(err);
