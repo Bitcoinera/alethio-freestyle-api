@@ -12,7 +12,6 @@ function monitor_account(account) {
                 blockRank: '',
                 contractCreated: '',
                 inBlock: '',
-                logEntries: '',
                 toAddress: '',
                 txHash: ''
             }],
@@ -36,23 +35,25 @@ function monitor_account(account) {
                 let values = [];
                 for (let i = 0; i < body.data.data.length; i++) {
                     values[i] = body.data.data[i].attributes.value;
+                    values[i] = parseInt(values[i]) / 1000000000000000000;
+                    values[i] = values[i].toFixed(4);
                 }
                 axios_1.default.get(url + account + '/contractMessages')
                     .then(body => {
-                    if (body.data.data.length === 0) {
+                    let data = body.data.data;
+                    if (data.length === 0) {
                         response.contractMessages = [];
                     }
                     else {
-                        for (let i = 0; i < body.data.data.length; i++) {
+                        for (let i = 0; i < data.length; i++) {
                             response.contractMessages[i] = {
-                                type: body.data.data[i].type,
+                                type: data[i].type,
                                 value: values[i],
-                                blockRank: body.data.data[i].attributes.globalRank[1],
-                                contractCreated: body.data.data[i].relationships.from.data.id,
-                                inBlock: body.data.data[i].relationships.includedInBlock.data.id,
-                                logEntries: '',
-                                toAddress: body.data.data[i].relationships.to.data.id,
-                                txHash: body.data.data[i].relationships.transaction.data.id
+                                blockRank: data[i].attributes.globalRank[1],
+                                contractCreated: data[i].relationships.from.data.id,
+                                inBlock: data[i].relationships.includedInBlock.data.id,
+                                toAddress: data[i].relationships.to.data.id,
+                                txHash: data[i].relationships.transaction.data.id
                             };
                         }
                         response.links = {
@@ -79,3 +80,6 @@ function monitor_account(account) {
     });
 }
 exports.monitor_account = monitor_account;
+// useful for debugging
+const promise = monitor_account('0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF'); // only txns 0xd73953bc13c031459f3856a9a5adce36bed18fdc
+promise.then((result) => { console.log(result), console.log(result['contractMessages']); }, (error) => { console.error(error); });

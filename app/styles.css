@@ -22,3 +22,8 @@ li:before {
 p.error {
     color: red;
 }
+
+#graphs {
+    width: 988px;
+    height: 488px;
+}
