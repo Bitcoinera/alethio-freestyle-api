@@ -5,14 +5,15 @@ let input = (<HTMLInputElement>document.getElementById('account'));
 let divError = document.getElementById('error');
 let responseUl = document.getElementById('response');
 let inputButton = document.getElementById('button');
-let toggleButton = document.getElementById('toggle-activities');
 
 // account with con contract msgs 0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF & another one 0x829bd824b016326a401d083b33d092293333a830
 // account with no contract msgs but txns 0xd73953bc13c031459f3856a9a5adce36bed18fdc
 // account with only 2 contract messages 0xb7605ddc0327406a7ac225b9de87865e22ac5927
 
 inputButton.addEventListener('click', async () => {
-
+    // handle empty input
+    if ( input.value === '' ) { return;}
+    
     AccountController.monitor_account(input.value)
         .then( (values) => {
             // empty input text content
@@ -43,18 +44,27 @@ inputButton.addEventListener('click', async () => {
                 <h4>General Stats</h4>
                 <li>Balance: ${values['balance']} ETH</li>
                 <h4>Transactions Stats</h4>
+                <button id="toggle-transactions">Toggle Transactions</button>
                 <p>Total number of transactions: ${values['transactions'].lengthOther}</p>
+                <div class="row">
+                <div class="column-s">
                 `;
                 values['transactions'].forEach( (txn, index) => {
                     domString = domString + `
-                    <li>Txn ${index}: ${txn.value} ETH</li> 
+                    <li class="txn">Txn ${index}: ${txn.value} ETH</li> 
                     `;
                 })
 
-                domString = domString + `<div id="graphs">
+                domString = domString + `
+                </div>
+                <div class="column">
+                <div id="graphs">
                     <canvas id="txnChart" width="400" height="200"></canvas>
                 </div>
+                </div>
+                </div>
                 <h4>Activities Stats</h4>
+                <button id="toggle-activities">Toggle Activities</button>
                 <p>Total number of contract messages: ${values['contractMessages'].lengthOther}</p>
                 `;
                 
@@ -85,8 +95,9 @@ inputButton.addEventListener('click', async () => {
         })
 })
 
-toggleButton.addEventListener('click', () => {
-    let lis = <HTMLElement[]><any>document.querySelectorAll('li.activity');
+// toggle function
+const toggle = (type) => {
+    let lis = <HTMLElement[]><any>document.querySelectorAll(`li.${type}`);
     if ( lis.length > 0 ) {
         lis.forEach( li => {
             if ( li.style.display === 'none' ) {
@@ -96,8 +107,19 @@ toggleButton.addEventListener('click', () => {
             }
         })
     } else {
-        console.log('No li elements to hide'); // No activities to hide
+        console.log(`No ${type} to hide`);
     }
-})
+}
+// event delegation model
+document.addEventListener('click',function(e){
+    // toggle activities event
+    if(e.target && e.target['id'] === 'toggle-transactions'){
+        toggle('txn');
+    }
+    // toggle activities event
+    else if(e.target && e.target['id'] === 'toggle-activities'){
+        toggle('activity');
+    }
+ });
 
 

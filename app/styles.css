@@ -7,7 +7,7 @@ span {
 }
 
 button {
-    margin-top: 10px;
+    border-radius: 8px;
 }
 
 ul {
@@ -26,4 +26,25 @@ p.error {
 #graphs {
     width: 988px;
     height: 488px;
+}
+
+.column-s {
+    float: left;
+    width: 20%;
+}
+
+.column {
+    float: left;
+    width: 80%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.txn {
+    font-size: 15px;
 }
