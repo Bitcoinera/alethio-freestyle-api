@@ -29,15 +29,33 @@ inputButton.addEventListener('click', async () => {
                 let errorDomString =  `<p class="error">An error occurred!</p><p class="error">${values['errorMessage']}</p>`;
                 divError.innerHTML = errorDomString;
             } else {
+                // handle length when there are over 10 txns and contmsgs
+                values['transactions'].lengthOther = values['transactions'].length;
+                values['contractMessages'].lengthOther = values['contractMessages'].length;
+                if ( values['transactions'].length === 10 ) {
+                    values['transactions'].lengthOther = `10(+)<p>Ten last transactions in order are:</p>`
+                }
+                if ( values['contractMessages'].length === 10 ) {
+                    values['contractMessages'].lengthOther = '10(+)<p>Ten last messages in order are:</p>'
+                }
+                // create all displayed data
                 let domString = `
-                <h5>General Stats</h5>
+                <h4>General Stats</h4>
                 <li>Balance: ${values['balance']} ETH</li>
-                <li>Number of transactions: ${values['numberTransactions']}</li>
-                <h5>Activity Stats</h5>
-                <p>There are ${values['contractMessages'].length} contract messages in total</p>
-                <div id="graphs">
+                <h4>Transactions Stats</h4>
+                <p>Total number of transactions: ${values['transactions'].lengthOther}</p>
+                `;
+                values['transactions'].forEach( (txn, index) => {
+                    domString = domString + `
+                    <li>Txn ${index}: ${txn.value} ETH</li> 
+                    `;
+                })
+
+                domString = domString + `<div id="graphs">
                     <canvas id="txnChart" width="400" height="200"></canvas>
                 </div>
+                <h4>Activities Stats</h4>
+                <p>Total number of contract messages: ${values['contractMessages'].lengthOther}</p>
                 `;
                 
                 values['contractMessages'].forEach( (contractMessage, index) => {

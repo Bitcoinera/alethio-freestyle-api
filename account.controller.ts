@@ -5,10 +5,11 @@ let url = `https://api.aleth.io/v1/accounts/`;
 export function monitor_account(account) {
     let response = {
         balance: '0',
-        numberTransactions: '0',
+        transactions: [{
+            value: '0',
+        }],
         contractMessages: [{
             type: '',
-            value: '0',
             blockRank: '',
             contractCreated: '',
             inBlock: '',
@@ -31,16 +32,13 @@ export function monitor_account(account) {
 
             axios.get( url + account + '/transactions')
                 .then( body => {
-                    response.numberTransactions = body.data.data.length.toString();
-                    if ( response.numberTransactions === '10' ) {
-                        response.numberTransactions = '10+  (this feature is a work in progress)'
-                    }
-
-                    let values = [];
                     for ( let i = 0; i < body.data.data.length; i++ ) {
-                       values[i] = body.data.data[i].attributes.value;
-                       values[i] = parseInt(values[i]) / 1000000000000000000;
-                       values[i] = values[i].toFixed(4);
+                       let txValue = body.data.data[i].attributes.value;
+                       txValue = parseInt(txValue) / 1000000000000000000;
+                       txValue = txValue.toFixed(4);
+                       response.transactions[i] = {
+                           value: txValue
+                       }
                     }
 
                 axios.get( url + account + '/contractMessages')
@@ -52,7 +50,6 @@ export function monitor_account(account) {
                             for ( let i = 0; i < data.length; i++ ) {
                                 response.contractMessages[i] = {
                                     type: data[i].type,
-                                    value: values[i],
                                     blockRank: data[i].attributes.globalRank[1],
                                     contractCreated: data[i].relationships.from.data.id,
                                     inBlock: data[i].relationships.includedInBlock.data.id,
@@ -88,7 +85,7 @@ export function monitor_account(account) {
 }
 
 // useful for debugging
-const promise = monitor_account('0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF'); // only txns 0xd73953bc13c031459f3856a9a5adce36bed18fdc
+const promise = monitor_account('0xd73953bc13c031459f3856a9a5adce36bed18fdc'); // only txns 0xd73953bc13c031459f3856a9a5adce36bed18fdc
 promise.then(
     (result) => { console.log(result), console.log(result['contractMessages']) },
     (error) => { console.error(error) }
