@@ -6,6 +6,9 @@
 ## Setup and Run
 
 ```
+tsc
+```
+```
 npm i
 ```
 ```

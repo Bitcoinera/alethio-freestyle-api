@@ -63,6 +63,19 @@ inputButton.addEventListener('click', async () => {
                 </div>
                 </div>
                 </div>
+                `;
+                values['transactions'].forEach( (txn, index) => {
+                    domString = domString + `
+                    <p>------> Transaction Number ${index}</p>
+                    <li class="txn">Hash: ${txn.txHash}</li> 
+                    <li class="txn">Block hash: ${txn.blockHash}</li> 
+                    <li class="txn">Gas limit: ${txn.gasLimit}</li> 
+                    <li class="txn">Gas price: ${txn.gasPrice}</li> 
+                    <li class="txn">Gas used: ${txn.gasUsed}</li> 
+                    `;
+                })
+
+                domString = domString + `
                 <h4>Activities Stats</h4>
                 <button id="toggle-activities">Toggle Activities</button>
                 <p>Total number of contract messages: ${values['contractMessages'].lengthOther}</p>
@@ -77,7 +90,7 @@ inputButton.addEventListener('click', async () => {
                     <li class="activity">Hash of the contract: ${contractMessage.contractCreated}</li>
                     <li class="activity">Recipient address: ${contractMessage.toAddress}</li>
                     <li class="activity">Transaction hash: ${contractMessage.txHash}</li>
-                    <li class="activity">Block hash where txn occurred: ${contractMessage.inBlock}</li>
+                    <li class="activity">Block hash: ${contractMessage.blockHash}</li>
                     `;
                 })
                 responseUl.innerHTML = domString;
