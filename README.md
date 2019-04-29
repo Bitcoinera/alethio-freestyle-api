@@ -6,10 +6,10 @@
 ## Setup and Run
 
 ```
-tsc
-```
-```
 npm i
+```
+```
+tsc
 ```
 ```
 npm start
@@ -27,4 +27,5 @@ Go to http://localhost:8080 and enter in the input box the ETH account you would
 ## Recommended Accounts:
 
 Good to check the transactions chart: `0xd73953bc13c031459f3856a9a5adce36bed18fdc`
+
 Good to check the contract messages: `0x4Cf890695E2188a124495EbC3b1Ec6341F21C9CF`
